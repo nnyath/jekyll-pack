@@ -17,5 +17,5 @@ _Only tested on a Unix based machine (Arch Linux)_
 
 ```
 npm install
-npm run gulp
+npm run dev
 ```
