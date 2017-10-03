@@ -6,7 +6,6 @@
 
 var 
   gulp = require('gulp'),
-  watch = require('gulp-watch'),
   browserSync = require('browser-sync'),
   runSequence = require('run-sequence'),
   rimraf = require('rimraf')

@@ -8,7 +8,8 @@ An improved development and build environment for Jekyll by addition of Gulp and
 * Vagrant and VM polling fallbacks
 
 ## Getting Started
-Make sure you have the requirements for Jekyll and Node/NPM ready to go
+Make sure you have the requirements for Jekyll and Node/NPM ready to go.
+You might also need the gem for Jekyll's default theme 'minima' installed as well
 
 Simply clone and install NPM dependencies.
 Run the NPM script **gulp** to start a local dev server
