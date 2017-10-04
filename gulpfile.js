@@ -4,11 +4,11 @@
 //TODO: Change paths using path.resolve
 
 
-var 
+var
+  fs = require('fs-extra'),
   gulp = require('gulp'),
   browserSync = require('browser-sync'),
-  runSequence = require('run-sequence'),
-  rimraf = require('rimraf')
+  runSequence = require('run-sequence')
 
 //Build Task
 gulp.task('build', function(){
@@ -21,7 +21,7 @@ gulp.task('build', function(){
 })
 
 gulp.task('deleteDist', function(){
-  rimraf('./dist/**/*.*', function(){
+  fs.emptyDir('./dist', function(){
   })
 })
 
