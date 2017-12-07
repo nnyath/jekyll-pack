@@ -1,23 +1,31 @@
 {
   "name": "jekyll-pack",
-  "version": "1.0.0",
+  "version": "2.0.0a",
   "description": "jekyll webpack gulp es6 boilerplate",
-  "main": "index.js",
+  "main": "dist/app.js",
   "repository": "",
   "author": "Kenny Inthirath <kenny.inthirath@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "gulp"
+    "start": "gulp dev"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "browser-sync": "^2.18.13",
+    "extract-text-webpack-plugin": "^3.0.2",
     "gulp": "^3.9.1",
     "rimraf": "^2.6.2",
     "run-sequence": "^2.2.0",
-    "webpack": "^3.6.0"
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.6",
+    "webpack-merge": "^4.1.1",
+    "webpack-module-hot-accept": "^1.0.5"
+  },
+  "dependencies": {
+    "webpack-dev-middleware": "^1.12.2",
+    "webpack-hot-middleware": "^2.21.0"
   }
 }

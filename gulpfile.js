@@ -1,72 +1,61 @@
-//Targetting ES5 for better compatibility, I don't think I'm using ES6 feats? Check plugin dependencies
-
-//TODO: Create dev and dist versions of configs
-//TODO: Change paths using path.resolve
-
-
-var 
+const 
   gulp = require('gulp'),
   browserSync = require('browser-sync'),
-  runSequence = require('run-sequence'),
-  rimraf = require('rimraf')
+  webpack = require('webpack'),
+  webpackDevMiddleware = require('webpack-dev-middleware'),
+  webpackHotMiddleware = require('webpack-hot-middleware'),
+  runSequence = require('run-sequence')
 
-//Build Task
-gulp.task('build', function(){
+const 
+  webpackConfig = require('./webpack.dev.js')
+  bundler = webpack(webpackConfig)
+
+gulp.task('dev', function(){
   runSequence(
-    'deleteDist',
-    'buildJekyll',
-    'webpack',
-    'bsyncReload'
+    'watch'
   )
 })
 
-gulp.task('deleteDist', function(){
-  rimraf('./dist/**/*.*', function(){
-  })
-})
-
-gulp.task('webpack', function(gulpCallback){
-  var spawn = require('child_process').spawn
-  var webpack = spawn('webpack',{
-    stdio: 'inherit'
-  }).on('exit', function(code){
-    gulpCallback(code === 0 ? null : 'ERR: Webpack process exited with code', code)
-  })
-})
-
-//TODO: Check compatibility with Netlify
 gulp.task('buildJekyll', function(gulpCallback){
   var spawn = require('child_process').spawn
-  var jekyll = spawn('jekyll', ['build','--source','./jekyll-src/','--destination','./dist'],{
+  var jekyll = spawn('jekyll', ['build','--source','./jekyll-src/','--destination','./dev'],{
     stdio: 'inherit'
   }).on('exit', function(code){
     gulpCallback(code === 0 ? null : 'ERR: Jekyll process exited with code', code)
   })
-
 })
 
 gulp.task('watch', ['bsync'], function(){
-  gulp.watch(['./jekyll-src/**/*.*'],{
+  gulp.watch(['jekyll-src/**/*.*', '!jekyll-src/**/*.js'],{
     //Vagrant + VM Polling fallback due to file events not sending
     // interval: 1000,
     // debounceDelay: 1000,
     // mode: 'poll'
-  }, ['build','webpack'])
+  }, ['build'])
+})
+
+gulp.task('build', function(){
+  runSequence(
+    'buildJekyll',
+    'bsyncReload'
+  )
+})
+
+gulp.task('bsyncReload',function(){
+  browserSync.reload()
 })
 
 gulp.task('bsync', ['build'], function(){
   browserSync.init(null,{
     server:{
-      baseDir:"dist"
+      baseDir:"dev",
+      middleware:[
+        webpackDevMiddleware(bundler, {
+          publicPath: webpackConfig.output.publicPath,
+          stats: { colors: true }
+        }),
+        webpackHotMiddleware(bundler)
+      ]
     }
   })
-})
-
-gulp.task('bsyncReload',function(){
-    browserSync.reload()
-})
-
-gulp.task('default',function(){
-  console.log('Default task')
-  runSequence('watch')
 })
