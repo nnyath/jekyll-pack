@@ -1,8 +1,8 @@
-:root{
+:root {
   --white: #fff;
   --yellow: #ffad15;
 }
 
-a{
+a {
   color: var(--yellow);
 }
