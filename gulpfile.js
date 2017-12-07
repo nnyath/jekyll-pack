@@ -52,7 +52,7 @@ gulp.task('rebuild', function () {
 /*
   BrowserSync
 */
-gulp.task('bsync', ['build'], function () {
+gulp.task('bsync', ['rebuild'], function () {
   browserSync.init(null, {
     server: {
       baseDir: 'dev',
