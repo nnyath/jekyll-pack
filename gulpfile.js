@@ -26,7 +26,7 @@ gulp.task('buildJekyll', function(gulpCallback){
 })
 
 gulp.task('watch', ['bsync'], function(){
-  gulp.watch(['jekyll-src/**/*.*', '!jekyll-src/**/*.js'],{
+  gulp.watch(['jekyll-src/**/*.*', '!jekyll-src/**/*.js', '!jekyll-src/**/*.css'],{
     //Vagrant + VM Polling fallback due to file events not sending
     // interval: 1000,
     // debounceDelay: 1000,

@@ -48,7 +48,7 @@ module.exports = configMerge.smart(require('./webpack.base.js'), {
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
       filename: '[name].css',
-      disable: true,
+      disable: true
     }),
   ],
   devtool: 'source-map',

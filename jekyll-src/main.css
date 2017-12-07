@@ -1,0 +1,8 @@
+:root{
+  --white: #fff;
+  --yellow: #ffad15;
+}
+
+a{
+  color: var(--yellow);
+}
