@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   plugins: [
@@ -6,14 +6,12 @@ module.exports = {
     require('postcss-cssnext')({
       features: {
         customProperties: {
-          variables: {
-            "preferred-font": 'inherit'
-          },
-        },
-      },
+          variables: {'preferred-font': 'inherit'}
+        }
+      }
     }),
     require('cssnano')({
-      preset: 'default',
-    }),
-  ],
-};
+      preset: 'default'
+    })
+  ]
+}

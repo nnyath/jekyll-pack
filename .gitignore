@@ -1,7 +1,9 @@
-_site/
-dist/
 dev/
+dist/
 .sass-cache/
 .jekyll-metadata
+
+.vscode/
 node_modules/
+
 

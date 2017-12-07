@@ -1,55 +1,62 @@
-const 
+const
   gulp = require('gulp'),
   browserSync = require('browser-sync'),
   webpack = require('webpack'),
   webpackDevMiddleware = require('webpack-dev-middleware'),
   webpackHotMiddleware = require('webpack-hot-middleware'),
-  runSequence = require('run-sequence')
+  runSequence = require('run-sequence'),
 
-const 
-  webpackConfig = require('./webpack.dev.js')
+  webpackConfig = require('./webpack.dev.js'),
   bundler = webpack(webpackConfig)
 
-gulp.task('dev', function(){
+gulp.task('default', ['dev'])
+
+gulp.task('dev', function () {
   runSequence(
     'watch'
   )
 })
 
-gulp.task('buildJekyll', function(gulpCallback){
-  var spawn = require('child_process').spawn
-  var jekyll = spawn('jekyll', ['build','--source','./jekyll-src/','--destination','./dev'],{
+/*
+  Jekyll Build and Watch
+*/
+gulp.task('buildJekyll', function (gulpCallback) {
+  let spawn = require('child_process').spawn
+
+  spawn('jekyll', ['build', '--source', './jekyll-src/', '--destination', './dev'], {
     stdio: 'inherit'
-  }).on('exit', function(code){
+  }).on('exit', function (code) {
     gulpCallback(code === 0 ? null : 'ERR: Jekyll process exited with code', code)
   })
 })
 
-gulp.task('watch', ['bsync'], function(){
-  gulp.watch(['jekyll-src/**/*.*', '!jekyll-src/**/*.js', '!jekyll-src/**/*.css'],{
-    //Vagrant + VM Polling fallback due to file events not sending
+gulp.task('watch', ['bsync'], function () {
+  gulp.watch(['jekyll-src/**/*.*', '!jekyll-src/**/*.js', '!jekyll-src/**/*.css'], {
+    /*
+      Vagrant + VM Polling fallback due to file events not sending
+      TODO: Add for Webpack Config
+    */
     // interval: 1000,
     // debounceDelay: 1000,
     // mode: 'poll'
-  }, ['build'])
+  }, ['rebuild'])
 })
 
-gulp.task('build', function(){
+gulp.task('rebuild', function () {
   runSequence(
     'buildJekyll',
     'bsyncReload'
   )
 })
 
-gulp.task('bsyncReload',function(){
-  browserSync.reload()
-})
-
-gulp.task('bsync', ['build'], function(){
-  browserSync.init(null,{
-    server:{
-      baseDir:"dev",
-      middleware:[
+/*
+  BrowserSync
+*/
+gulp.task('bsync', ['build'], function () {
+  browserSync.init(null, {
+    server: {
+      baseDir: 'dev',
+      middleware: [
         webpackDevMiddleware(bundler, {
           publicPath: webpackConfig.output.publicPath,
           stats: { colors: true }
@@ -58,4 +65,8 @@ gulp.task('bsync', ['build'], function(){
       ]
     }
   })
+})
+
+gulp.task('bsyncReload', function () {
+  browserSync.reload()
 })
