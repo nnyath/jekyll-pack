@@ -6,8 +6,6 @@ const
   path = require('path'),
   ExtractTextPlugin = require('extract-text-webpack-plugin'),
 
-  HOST = 'localhost',
-  PORT = '3000',
   CONTEXT = path.join(__dirname, 'jekyll-src')
 
 module.exports = configMerge.smart(require('./webpack.base.js'), {
@@ -20,8 +18,7 @@ module.exports = configMerge.smart(require('./webpack.base.js'), {
   },
   output: {
     path: path.join(__dirname, 'dev'),
-    filename: '[name].js',
-    publicPath: `http://${HOST}:${PORT}/`
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -55,12 +52,5 @@ module.exports = configMerge.smart(require('./webpack.base.js'), {
       disable: true
     })
   ],
-  devtool: 'source-map',
-  devServer: {
-    hot: true,
-    contentBase: 'dev/',
-    historyApiFallback: true,
-    disableHostCheck: true,
-    headers: { 'Access-Control-Allow-Origin': '*' }
-  }
+  devtool: 'source-map'
 })
