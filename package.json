@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "start": "gulp dev",
-    "dist": "NODE_ENV=production JEKYLL_ENV=production jekyll build --source ./jekyll-src/ --destination ./dist && webpack --config webpack.dist.js && gulp dist",
+    "dist": "cross-env NODE_ENV=production JEKYLL_ENV=production jekyll build --source ./jekyll-src/ --destination ./dist && webpack --config webpack.dist.js && gulp dist",
     "lint": "npm run lint:js & npm run lint:css",
     "lint:js": "eslint ./jekyll-src",
     "lint:js:fix": "npm run lint:js -- --fix",
@@ -36,6 +36,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "browser-sync": "^2.18.13",
+    "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "eslint": "^4.12.1",

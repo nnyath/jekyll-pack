@@ -9,7 +9,7 @@ const
 
   webpackConfig = require('./webpack.dev.js'),
   bundler = webpack(webpackConfig),
-  output = process.env.NODE_ENV === 'production' ? './dist' : './dev'
+  output = process.env.npm_lifecycle_event === 'dist' ? './dist' : './dev'
 
 gulp.task('default', ['dev'])
 
