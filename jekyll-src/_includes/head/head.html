@@ -1,11 +1,16 @@
 <head>
+  <title>{{ site.data.config.appName }}</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="{{ site.title }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Write a 160 character description here">
 
-  <script src="app.js"></script>
-  <link rel="stylesheet" href="app.css">
+  <!-- Async JS files -->
+  <script async src="app.js"></script>
+
+  {% include head/css.html %}
+  {% include head/analytics.html id='123' %}
+  {% include head/favicons.html %}
 
 </head>
 

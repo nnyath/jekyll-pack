@@ -9,12 +9,14 @@
   "private": false,
   "scripts": {
     "start": "gulp dev",
+    "dist": "NODE_ENV=production JEKYLL_ENV=production jekyll build --source ./jekyll-src/ --destination ./dist && webpack && gulp favicons",
     "lint": "npm run lint:js & npm run lint:css",
     "lint:js": "eslint .",
     "lint:js:fix": "npm run lint:js -- --fix",
     "lint:css": "stylelint 'jekyll-src/**/*.css'",
     "lint:css:fix": "stylefmt --recursive jekyll-src/",
-    "lint:staged": "lint-staged"
+    "lint:staged": "lint-staged",
+    "favicons": "gulp favicons --src"
   },
   "lint-staged": {
     "*.js": [
@@ -44,6 +46,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "gulp": "^3.9.1",
+    "gulp-favicons": "^2.2.7",
     "lint-staged": "^6.0.0",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",

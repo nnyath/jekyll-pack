@@ -1,8 +1,7 @@
 {
   "extends": "standard",
-  "rules":{
-    "one-var": [2, {
-      "const" : "always"
-    }]
+  "rules": {
+    "one-var": 0,
+    "curly": ["error", "multi"]
   }
 }

@@ -1,0 +1,10 @@
+{
+  "appName" : "Jekyll-Webpack",
+  "appDescription" : "160 character description",
+  "favicons" : {
+    "developerName":"DevName",
+    "developerURL":"DevUrl",
+    "background":"#FFF",
+    "theme_color":"#FFF"
+  }
+}

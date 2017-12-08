@@ -5,9 +5,11 @@ const
   webpackDevMiddleware = require('webpack-dev-middleware'),
   webpackHotMiddleware = require('webpack-hot-middleware'),
   runSequence = require('run-sequence'),
+  favicons = require('gulp-favicons'),
 
   webpackConfig = require('./webpack.dev.js'),
-  bundler = webpack(webpackConfig)
+  bundler = webpack(webpackConfig),
+  output = process.env.NODE_ENV === 'production' ? './dist' : './dev'
 
 gulp.task('default', ['dev'])
 
@@ -69,4 +71,41 @@ gulp.task('bsync', ['rebuild'], function () {
 
 gulp.task('bsyncReload', function () {
   browserSync.reload()
+})
+
+gulp.task('favicons', () => {
+  const { appName, appDescription, favicons: {developerName, developerURL, background, theme_color} } = require('./jekyll-src/_data/config.json')
+
+  const config = {
+    appName,
+    appDescription,
+    developerName,
+    developerURL,
+    background,
+    theme_color,
+    path: './jekyll-src/assets',
+    display: 'standalone',
+    orientation: 'portrait',
+    start_url: '/?homescreen=1',
+    version: '1.0',
+    logging: false,
+    online: false,
+    html: 'index.html',
+    pipeHTML: true,
+    preferOnline: false,
+    icons: {
+      android: true,
+      appleIcon: true,
+      appleStartup: true,
+      coast: { offset: 25 },
+      favicons: true,
+      firefox: true,
+      windows: true,
+      yandex: true
+    }
+  }
+
+  return gulp.src('jekyll-src/assets/favicon.png')
+    .pipe(favicons(config))
+    .pipe(gulp.dest(`./${output}/assets/favicons/`))
 })
