@@ -109,3 +109,9 @@ gulp.task('favicons', () => {
     .pipe(favicons(config))
     .pipe(gulp.dest(`./${output}/assets/favicons/`))
 })
+
+gulp.task('dist', () => {
+  runSequence([
+    'favicons'
+  ])
+})
