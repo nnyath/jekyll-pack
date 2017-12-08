@@ -1,6 +1,6 @@
 {
-  "appName" : "Jekyll-Webpack",
-  "appDescription" : "160 character description",
+  "appName" : "Static-Pack",
+  "appDescription" : "Production ready, SEO friendly, static website generator boilerplate that follows best pratices from the excellent Front-End Checklist",
   "favicons" : {
     "developerName":"DevName",
     "developerURL":"DevUrl",

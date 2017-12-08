@@ -1,5 +1,5 @@
 {
-  "name": "jekyll-pack",
+  "name": "static-pack",
   "version": "2.0.0a",
   "description": "jekyll webpack gulp es6 boilerplate",
   "main": "dist/app.js",
