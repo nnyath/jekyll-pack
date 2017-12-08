@@ -9,9 +9,6 @@ module.exports = {
           variables: {'preferred-font': 'inherit'}
         }
       }
-    }),
-    require('cssnano')({
-      preset: 'default'
     })
   ]
 }

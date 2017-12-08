@@ -28,9 +28,15 @@ module.exports = configMerge.smart(require('./webpack.base.js'), {
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        use: [{
-          loader: 'webpack-module-hot-accept'
-        }]
+        use: [
+          {loader: 'webpack-module-hot-accept'},
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['env']
+            }
+          }
+        ]
       }]
   },
   plugins: [

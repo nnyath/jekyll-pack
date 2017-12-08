@@ -6,6 +6,8 @@ const
   webpackHotMiddleware = require('webpack-hot-middleware'),
   runSequence = require('run-sequence'),
   favicons = require('gulp-favicons'),
+  critical = require('critical').stream,
+  HTMLMinifier = require('gulp-htmlmin'),
 
   webpackConfig = require('./webpack.dev.js'),
   bundler = webpack(webpackConfig),
@@ -110,8 +112,34 @@ gulp.task('favicons', () => {
     .pipe(gulp.dest(`./${output}/assets/favicons/`))
 })
 
+gulp.task('critical-css', () => {
+  return gulp.src('./dist/**/*.html')
+    .pipe(
+      critical({
+        base: './dist/',
+        inline: true,
+        minify: true,
+        css: './dist/app.css',
+        width: 1920,
+        height: 1280,
+        penthouse: {blockJSRequests: true}
+      })
+    ).on('error', function (err) { console.warn(err) })
+    .pipe(gulp.dest('./dist'))
+})
+
+gulp.task('minify-html', () => {
+  return gulp.src('./dist/**/*.html')
+    .pipe(HTMLMinifier(require('./.htmlminifer.json')))
+    .pipe(gulp.dest('./dist'))
+})
+
 gulp.task('dist', () => {
-  runSequence([
-    'favicons'
-  ])
+  runSequence(
+    [
+      'favicons',
+      'critical-css'
+    ],
+    'minify-html'
+  )
 })
